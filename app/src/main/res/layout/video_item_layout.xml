@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    >
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_thumbnail_img"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/file_url_light"
+        android:layout_marginLeft="10dp"
+        android:layout_centerVertical="true"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="hoiopjjhojds.mp4"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/item_thumbnail_img"
+        android:id="@+id/item_name_tv"
+        android:layout_marginLeft="10dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="http://josjjosd.png"
+        android:id="@+id/item_link_tv"
+        android:layout_below="@+id/item_name_tv"
+        android:layout_centerHorizontal="true"
+        android:layout_alignLeft="@+id/item_name_tv"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="4mb"
+        android:id="@+id/item_totlasize_tv"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="6:00"
+        android:id="@+id/totalduration"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/item_totlasize_tv"
+
+        />
+</RelativeLayout>

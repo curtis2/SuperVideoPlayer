@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+        <solid android:color="#FFFFFF" />
+        <padding android:top="3dp" android:bottom="3dp"
+            android:left="@dimen/dimen_space_3"
+            android:right="@dimen/dimen_space_3"
+            />
+        <stroke android:width="@dimen/dimen_space_3" android:color="@color/video_bottom_color"/>
+</shape>
