@@ -30,6 +30,7 @@ import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 import java.util.ArrayList;
 
+//测试git提交
 public class LaunchActivity extends Activity {
     private String mVideoPath = "http://125.39.142.86/data2/video09/2016/03/01/3871799-102-1615.mp4";
     private LinearLayout mLinearLayout;
