@@ -21,6 +21,9 @@
 
 
 示例:
+
+---
+
 ![Alt text](https://github.com/curtis2/SuperVideoPlayer/blob/0aaf3ce2b6fc817d50ffdbe79a75ef6701c0b96b/source/start.gif)
 
 ***
