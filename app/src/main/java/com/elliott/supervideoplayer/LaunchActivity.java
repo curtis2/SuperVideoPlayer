@@ -30,7 +30,6 @@ import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 import java.util.ArrayList;
 
-//测试git提交
 public class LaunchActivity extends Activity {
     private String mVideoPath = "http://125.39.142.86/data2/video09/2016/03/01/3871799-102-1615.mp4";
     private LinearLayout mLinearLayout;
@@ -60,6 +59,18 @@ public class LaunchActivity extends Activity {
         initDatas();
         showCurrentListView();
    }
+
+    /**
+     * 插入测试数据，可删除
+     */
+    private void initTestDatas() {
+        VideoBean bean=new VideoBean();
+        bean.setVideoLink(mVideoPath);
+        bean.setVideoName("mp4");
+        bean.setType(currentType);
+        helper.insertBean(bean);
+
+    }
 
     private void showCurrentListView() {
         mLinearLayout.removeAllViews();
@@ -204,8 +215,10 @@ public class LaunchActivity extends Activity {
         mDataMaps.get(currentType).remove(bean);
         mAdapters.get(currentType).notifyDataSetChanged();
     }
+
     private void initDatas() {
         helper=new VideoBeanDaoHelper(this);
+        initTestDatas();
         mViewList=new ArrayList<View>();
         mDataMaps=new SparseArray<>();
         mAdapters=new SparseArray<>();
