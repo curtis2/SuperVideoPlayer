@@ -21,10 +21,10 @@
 
 
 示例:
-![Alt text](./start.gif)
+![Alt text](https://github.com/curtis2/SuperVideoPlayer/blob/0aaf3ce2b6fc817d50ffdbe79a75ef6701c0b96b/source/start.gif)
 
 ***
-![Alt text](./start2.gif)
+![Alt text](https://github.com/curtis2/SuperVideoPlayer/blob/master/source/start2.gif)
 
 
 ***
@@ -32,22 +32,22 @@
 ## 项目介绍:
 ---
 1.引入库项目
-   - **greenDAO**      greenDAO是一个Android对象关系映射工具（ORM）库
-   - **CircularFloatingActionMenu**   是用于安卓系统中的可自定义的动态圆形浮动菜单按钮。
-   - **SwipeMenuListView**      是一种可以在某一个view条目中响应用户左右侧滑滑出操作菜单的UI类库。
+   - **greenDAO**       greenDAO是一个Android对象关系映射工具（ORM）库
+   - **CircularFloatingActionMenu**    是用于安卓系统中的可自定义的动态圆形浮动菜单按钮。
+   - **SwipeMenuListView**     是一种可以在某一个view条目中响应用户左右侧滑滑出操作菜单的UI类库。
    - **vitamio**     视频播放库
 
  > 引入的库除了 vitamio以外，其他的都只是涉及到界面ui,数据存储相关的。和流媒体的处理关系不太。 实现流媒体功能的时候完全可以不用考虑这些。 不要因为这个不参与这个项目哦。
 
 2.核心类介绍
 
- &emsp;&emsp; **LaunchActivity**：
+ &emsp;&emsp; LaunchActivity：
  &emsp;&emsp;&emsp;&emsp;      应用启动界面，有加载数据，添加数据。切换不同界面等功能。
 
- &emsp;&emsp; **CustomMediaController** ：
+ &emsp;&emsp; CustomMediaController ：
     &emsp;&emsp;&emsp;&emsp;    继承vitamio的MediaController类，是一个FrameLayout. CustomMediaController 类主要是用于显示视频控制布局（就是播放，暂停，截屏，左右滑动切换声音的界面）。
 
-&emsp;&emsp;  **VideoViewActivity**：
+&emsp;&emsp;  VideoViewActivity：
   &emsp;&emsp;&emsp;&emsp;    视频播放界面,在改类中使用vitamio的VideoActivity播放视频。
 
 
