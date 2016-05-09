@@ -9,9 +9,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <include
-         layout="@layout/video_adjust_layout"></include>
-
     <LinearLayout
         android:id="@+id/loading_LinearLayout"
         android:orientation="vertical"

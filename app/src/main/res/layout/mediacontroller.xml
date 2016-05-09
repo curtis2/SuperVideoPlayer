@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     >
-
+    <include
+        layout="@layout/video_adjust_layout"></include>
     <include
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -6,7 +6,8 @@
     android:layout_centerInParent="true"
     android:background="#00000000"
     android:orientation="horizontal"
-    android:visibility="invisible" >
+    android:visibility="invisible"
+    >
         <ImageView
             android:id="@+id/operation_bg"
             android:layout_width="wrap_content"
