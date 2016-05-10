@@ -43,28 +43,28 @@ public class CustomMediaController extends MediaController {
 
     public CustomMediaController(Context context) {
         super(context);
-        this.mContext=context;
-        mAudioManager = (AudioManager)mContext.getSystemService(Context.AUDIO_SERVICE);
+        this.mContext = context;
+        mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
         mMaxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         mGestureDetector = new GestureDetector(mContext, new VolumeBrightnesGestureListener());
     }
 
     @Override
     protected View makeControllerView() {
-       return ((LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).
-               inflate(getResources().getIdentifier("mediacontroller", "layout", mContext.getPackageName()), this);
+        return ((LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).
+                inflate(getResources().getIdentifier("mediacontroller", "layout", mContext.getPackageName()), this);
     }
 
     @Override
     protected void setOnTouchEvent() {
         mVolumeBrightnessLayout = mRoot.findViewById(R.id.operation_volume_brightness);
-        mOperationBg = (ImageView)mRoot. findViewById(R.id.operation_bg);
-        mOperationPercent = (ImageView)mRoot. findViewById(R.id.operation_percent);
+        mOperationBg = (ImageView) mRoot.findViewById(R.id.operation_bg);
+        mOperationPercent = (ImageView) mRoot.findViewById(R.id.operation_percent);
         mRoot.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                LogUtils.i(LogUtils.LOG_TAG,"onTouchEvent");
-                if (mGestureDetector.onTouchEvent(event)){
+                LogUtils.i(LogUtils.LOG_TAG, "onTouchEvent");
+                if (mGestureDetector.onTouchEvent(event)) {
                     return true;
                 }
                 switch (event.getAction() & MotionEvent.ACTION_MASK) {
@@ -92,13 +92,13 @@ public class CustomMediaController extends MediaController {
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
             float mOldX = e1.getX(), mOldY = e1.getY();
             int y = (int) e2.getRawY();
-            Display disp =((Activity)mContext).getWindowManager().getDefaultDisplay();
+            Display disp = ((Activity) mContext).getWindowManager().getDefaultDisplay();
             int windowWidth = disp.getWidth();
             int windowHeight = disp.getHeight();
             if (mOldX > windowWidth * 4.0 / 5) {
                 onVolumeSlide((mOldY - y) / windowHeight);
                 return true;
-            }else if (mOldX < windowWidth / 5.0) {
+            } else if (mOldX < windowWidth / 5.0) {
                 onBrightnessSlide((mOldY - y) / windowHeight);
                 return true;
             }
@@ -140,7 +140,7 @@ public class CustomMediaController extends MediaController {
      */
     private void onBrightnessSlide(float percent) {
         if (mBrightness < 0) {
-            mBrightness =((Activity)mContext). getWindow().getAttributes().screenBrightness;
+            mBrightness = ((Activity) mContext).getWindow().getAttributes().screenBrightness;
             if (mBrightness <= 0.00f)
                 mBrightness = 0.50f;
             if (mBrightness < 0.01f)
@@ -149,13 +149,13 @@ public class CustomMediaController extends MediaController {
             mOperationBg.setImageResource(R.drawable.video_brightness_bg);
             mVolumeBrightnessLayout.setVisibility(View.VISIBLE);
         }
-        WindowManager.LayoutParams lpa = ((Activity)getContext()).getWindow().getAttributes();
+        WindowManager.LayoutParams lpa = ((Activity) getContext()).getWindow().getAttributes();
         lpa.screenBrightness = mBrightness + percent;
         if (lpa.screenBrightness > 1.0f)
             lpa.screenBrightness = 1.0f;
         else if (lpa.screenBrightness < 0.01f)
             lpa.screenBrightness = 0.01f;
-        ((Activity)mContext). getWindow().setAttributes(lpa);
+        ((Activity) mContext).getWindow().setAttributes(lpa);
 
         ViewGroup.LayoutParams lp = mOperationPercent.getLayoutParams();
         lp.width = (int) (findViewById(R.id.operation_full).getLayoutParams().width * lpa.screenBrightness);

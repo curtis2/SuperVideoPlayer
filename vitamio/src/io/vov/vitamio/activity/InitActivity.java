@@ -49,10 +49,6 @@ public class InitActivity extends Activity {
         mPD.show();
       }
 
-      @Override
-      protected Boolean doInBackground(Object... params) {
-        return Vitamio.initialize(InitActivity.this, getResources().getIdentifier("libarm", "raw", getPackageName()));
-      }
 
       @Override
       protected void onPostExecute(Boolean inited) {
@@ -60,6 +56,13 @@ public class InitActivity extends Activity {
           uiHandler.sendEmptyMessage(0);
         }
       }
+
+
+	@Override
+	protected Boolean doInBackground(Object... arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
     }.execute();
   }

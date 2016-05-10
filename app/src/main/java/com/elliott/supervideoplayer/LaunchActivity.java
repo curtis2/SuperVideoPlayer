@@ -40,6 +40,10 @@ public class LaunchActivity extends Activity {
     private ImageView ImageView2;
     private ImageView ImageView3;
 
+    public LaunchActivity() {
+        super();
+    }
+
     private ArrayList<View> mViewList;
     private ViewPagerAdapter pageAdapter;
 
