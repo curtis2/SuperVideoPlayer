@@ -37,59 +37,10 @@
     <ConfirmationsSetting value="0" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" default="true" assert-keyword="true" jdk-15="true" project-jdk-name="1.7" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
-  </component>
-  <component name="SvnBranchConfigurationManager">
-    <option name="myConfigurationMap">
-      <map>
-        <entry key="$PROJECT_DIR$/vitamio">
-          <value>
-            <SvnBranchConfiguration>
-              <option name="branchUrls">
-                <list>
-                  <option value="svn://192.168.0.204/UCBook3.0/src/ClientPad/Android" />
-                  <option value="svn://192.168.0.204/UCBook3.0/src/ClientPad/AndroidForERenEBen" />
-                  <option value="svn://192.168.0.204/UCBook3.0/src/ClientPad/AndroidForFujian" />
-                  <option value="svn://192.168.0.204/UCBook3.0/src/ClientPad/AndroidForLingyue" />
-                  <option value="svn://192.168.0.204/UCBook3.0/src/ClientPad/AndroidForWenXuan" />
-                  <option value="svn://192.168.0.204/UCBook3.0/src/ClientPad/AndroidForZhenjiang" />
-                  <option value="svn://192.168.0.204/UCBook3.0/src/ClientPad/Android_UClass" />
-                  <option value="svn://192.168.0.204/UCBook3.0/src/ClientPad/BookCheckTool" />
-                  <option value="svn://192.168.0.204/UCBook3.0/src/ClientPad/Iziyue" />
-                  <option value="svn://192.168.0.204/UCBook3.0/src/ClientPad/Platform-Project" />
-                  <option value="svn://192.168.0.204/UCBook3.0/src/ClientPad/TeacherHelper" />
-                  <option value="svn://192.168.0.204/UCBook3.0/src/ClientPad/Uclass_v4" />
-                  <option value="svn://192.168.0.204/UCBook3.0/src/ClientPad/Uclass_v4_new" />
-                  <option value="svn://192.168.0.204/UCBook3.0/src/ClientPad/Upuls" />
-                  <option value="svn://192.168.0.204/UCBook3.0/src/ClientPad/Win" />
-                </list>
-              </option>
-              <option name="trunkUrl" value="svn://192.168.0.204/UCBook3.0/src/ClientPad/trunk" />
-            </SvnBranchConfiguration>
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="mySupportsUserInfoFilter" value="true" />
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ProjectJDKs.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
   </component>
 </project>

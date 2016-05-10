@@ -183,9 +183,9 @@ public class MediaScanner {
   static {
     String LIB_ROOT = Vitamio.getLibraryPath();
     Log.i("LIB ROOT: %s", LIB_ROOT);
-    System.load(LIB_ROOT + "libstlport_shared.so");
-    System.load(LIB_ROOT + "libvscanner.so");
-    loadFFmpeg_native(LIB_ROOT + "libffmpeg.so");
+    System.load( LIB_ROOT + "libstlport_shared.so");
+    System.load( LIB_ROOT + "libvscanner.so");
+    loadFFmpeg_native( LIB_ROOT + "libffmpeg.so");
   }
 
   private native void processDirectory(String path, String extensions);

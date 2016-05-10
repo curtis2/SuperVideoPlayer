@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="74dp"
     android:background="@color/mediacontroller_bg"
     android:orientation="vertical" >
 
@@ -15,6 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
             android:background="@drawable/mediacontroller_button"
             android:contentDescription="@string/mediacontroller_play_pause"
             android:src="@drawable/mediacontroller_pause" />
@@ -25,6 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
             android:layout_toRightOf="@id/mediacontroller_play_pause" />
 
         <TextView
@@ -53,7 +55,7 @@
         style="@style/MediaController_Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:layout_marginLeft="5dp"
         android:ellipsize="marquee"
         android:singleLine="true" />
 
