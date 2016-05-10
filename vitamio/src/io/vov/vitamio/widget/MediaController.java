@@ -82,7 +82,7 @@ public class MediaController extends FrameLayout {
   private PopupWindow mWindow;
   private int mAnimStyle;//控制条的显示动画
   private View mAnchor;
-  private View mRoot;
+  public View mRoot;
   private SeekBar mProgress;
   private TextView mEndTime, mCurrentTime;
   private TextView mFileName;
@@ -197,19 +197,19 @@ public class MediaController extends FrameLayout {
     mWindow.setOutsideTouchable(true);
     mAnimStyle = android.R.style.Animation;
   }
-  
+
   @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-	public void setWindowLayoutType() {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-			try {
-				mAnchor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
-				Method setWindowLayoutType = PopupWindow.class.getMethod("setWindowLayoutType", new Class[] { int.class });
-				setWindowLayoutType.invoke(mWindow, WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG);
-			} catch (Exception e) {
-				Log.e("setWindowLayoutType", e);
-			}
-		}
-	}
+  public void setWindowLayoutType() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+      try {
+        mAnchor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+        Method setWindowLayoutType = PopupWindow.class.getMethod("setWindowLayoutType", new Class[] { int.class });
+        setWindowLayoutType.invoke(mWindow, WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG);
+      } catch (Exception e) {
+        Log.e("setWindowLayoutType", e);
+      }
+    }
+  }
 
   /**
    * Set the view that acts as the anchor for the control view. This can for
@@ -227,6 +227,11 @@ public class MediaController extends FrameLayout {
       mWindow.setHeight(LayoutParams.WRAP_CONTENT);
     }
     initControllerView(mRoot);
+    setOnTouchEvent();
+  }
+
+  protected void setOnTouchEvent() {
+
   }
 
   /**
@@ -423,7 +428,7 @@ public class MediaController extends FrameLayout {
 
   @Override
   public boolean onTouchEvent(MotionEvent event) {
-    show(sDefaultTimeout);
+//    show(sDefaultTimeout);
     return true;
   }
 
@@ -472,7 +477,7 @@ public class MediaController extends FrameLayout {
       mPlayer.pause();
     } else{
       mPlayer.start();
-  }
+    }
     updatePausePlay();
   }
 
