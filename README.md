@@ -15,7 +15,7 @@
  - 左右侧滑动调节声音和亮度
  - 缓存视频进度条
 
-下一步使用vitamio实现下面的功能:
+下一步使用vitamio实现下面的功能(仿vplayer):
   - 支持截屏，锁屏
   - 切换不同显示大小（全屏，拉伸）
   - 设置视频播放的一下配置（画面质量，硬解码等）
@@ -29,7 +29,7 @@
 
 ![Alt text](https://github.com/curtis2/SuperVideoPlayer/blob/0aaf3ce2b6fc817d50ffdbe79a75ef6701c0b96b/source/start.gif)
 
-![Alt text](https://github.com/curtis2/SuperVideoPlayer/blob/master/source/start2.gif)
+![Alt text](https://github.com/curtis2/SuperVideoPlayer/blob/master/source/start3.gif)
 
 
 ***
@@ -63,6 +63,6 @@ CustomMediaController 类中处理相关ui操作，VideoViewActivity中处理Vid
   ---
  1. 将该项目fork到自己的github;
  2. 完成待实现功能的代码编写和测试。
- 3. 提交pull requests.(提交之前记得先拉取（pull）一下，避免冲突哦！！)
+ 3. 提交pull requests.(提交之前记得先拉取一下，避免冲突哦！！)
 
 
