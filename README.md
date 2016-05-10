@@ -1,5 +1,8 @@
 # SuperVideoPlayer
 
+@(android 技术笔记)
+
+
 
 集成android流媒体处理的主流框架，vitamio, ijkplayer等等。使用不同的主流框架实现播放本地视频，网络视频，直播等功能。
 
@@ -26,7 +29,6 @@
 
 ![Alt text](https://github.com/curtis2/SuperVideoPlayer/blob/0aaf3ce2b6fc817d50ffdbe79a75ef6701c0b96b/source/start.gif)
 
-***
 ![Alt text](https://github.com/curtis2/SuperVideoPlayer/blob/master/source/start2.gif)
 
 
@@ -46,10 +48,8 @@
 
  &emsp;&emsp; LaunchActivity：
  &emsp;&emsp;&emsp;&emsp;      应用启动界面，有加载数据，添加数据。切换不同界面等功能。
-
  &emsp;&emsp; CustomMediaController ：
-    &emsp;&emsp;&emsp;&emsp;    继承vitamio的MediaController类，是一个FrameLayout. CustomMediaController 类主要是用于显示视频控制布局（就是播放，暂停，截屏，左右滑动切换声音的界面）。
-
+    &emsp;&emsp;&emsp;&emsp;    继承vitamio的MediaController类，是一个FrameLayout. CustomMediaController 类主要是用       于显示视频控制布局（就是播放，暂停，截屏，左右滑动切换声音的界面）。
 &emsp;&emsp;  VideoViewActivity：
   &emsp;&emsp;&emsp;&emsp;    视频播放界面,在改类中使用vitamio的VideoActivity播放视频。
 
@@ -63,6 +63,6 @@ CustomMediaController 类中处理相关ui操作，VideoViewActivity中处理Vid
   ---
  1. 将该项目fork到自己的github;
  2. 完成待实现功能的代码编写和测试。
- 3. 提交pull request.(提交之前记得先拉取一下，避免冲突哦！！)
+ 3. 提交pull requests.(提交之前记得先拉取一下，避免冲突哦！！)
 
 
