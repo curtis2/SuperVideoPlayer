@@ -1,6 +1,7 @@
 # SuperVideoPlayer
 
 
+
 集成android流媒体处理的主流框架，vitamio, ijkplayer等等。使用不同的主流框架实现播放本地视频，网络视频，直播等功能。
 
 >  写这个开源项目的初衷：
@@ -45,6 +46,7 @@
 
  &emsp;&emsp; **LaunchActivity**：
  -   &emsp;应用启动界面，有加载数据，添加数据。切换不同界面等功能。
+
  ***
 &emsp;&emsp;  **VideoViewActivity**：
 
