@@ -63,6 +63,6 @@ CustomMediaController 类中处理相关ui操作，VideoViewActivity中处理Vid
   ---
  1. 将该项目fork到自己的github;
  2. 完成待实现功能的代码编写和测试。
- 3. 提交pull requests.(提交之前记得先拉取一下，避免冲突哦！！)
+ 3. 提交pull requests.(提交之前记得先拉取（pull）一下，避免冲突哦！！)
 
 
