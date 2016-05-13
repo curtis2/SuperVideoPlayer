@@ -61,7 +61,6 @@ public class LaunchActivity extends Activity {
    }
 
     /**
-     * 插入测试数据，可删除
      */
     private void initTestDatas() {
         VideoBean bean=new VideoBean();
