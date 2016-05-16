@@ -8,4 +8,6 @@
 
     <color name="video_title_color">#ffffff</color>
     <color name="video_bottom_color">#2ea18f</color>
+    <color name="video_red_color">#CC0000</color>
+    <color name="video_gray_color">#BFBFBF</color>
 </resources>

@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     >
     <include
         layout="@layout/video_adjust_layout"></include>
@@ -11,13 +10,21 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         layout="@layout/video_title"></include>
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         >
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/switch_tanmu"
+            android:textOn="关闭弹幕"
+            android:textOff="开启弹幕"
+            android:textSize="8dp"
+            android:layout_gravity="right|bottom"
+            android:checked="false" />
     <RelativeLayout
         android:id="@+id/mediacontroller_seekbar_layout"
         android:layout_width="match_parent"

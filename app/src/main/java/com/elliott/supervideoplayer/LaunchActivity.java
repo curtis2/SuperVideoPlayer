@@ -65,14 +65,17 @@ public class LaunchActivity extends Activity {
    }
 
     /**
+     * 添加测试数据
      */
     private void initTestDatas() {
-        VideoBean bean=new VideoBean();
-        bean.setVideoLink(mVideoPath);
-        bean.setVideoName("mp4");
-        bean.setType(currentType);
-        helper.insertBean(bean);
-
+        ArrayList<VideoBean> datasByType = helper.getDatasByType(currentType);
+        if(datasByType==null){
+            VideoBean bean=new VideoBean();
+            bean.setVideoLink(mVideoPath);
+            bean.setVideoName("mp4");
+            bean.setType(currentType);
+            helper.insertBean(bean);
+        }
     }
 
     private void showCurrentListView() {
@@ -130,18 +133,18 @@ public class LaunchActivity extends Activity {
         ImageView menuimg= (ImageView) findViewById(R.id.menu_img);
         SubActionButton.Builder rLSubBuilder = new SubActionButton.Builder(this);
         ImageView rlIcon1 = new ImageView(this);
-        ImageView rlIcon2 = new ImageView(this);
-        ImageView rlIcon3 = new ImageView(this);
+/*        ImageView rlIcon2 = new ImageView(this);
+        ImageView rlIcon3 = new ImageView(this);*/
         ImageView rlIcon4 = new ImageView(this);
 
         rlIcon1.setImageDrawable(getResources().getDrawable(R.drawable.action_edit_light));
-        rlIcon2.setImageDrawable(getResources().getDrawable(R.drawable.action_hidden_default_dark));
-        rlIcon3.setImageDrawable(getResources().getDrawable(R.drawable.action_delete_selected_light));
+/*        rlIcon2.setImageDrawable(getResources().getDrawable(R.drawable.action_hidden_default_dark));
+        rlIcon3.setImageDrawable(getResources().getDrawable(R.drawable.action_delete_selected_light));*/
         rlIcon4.setImageDrawable(getResources().getDrawable(R.drawable.abc_ic_clear_search_api_holo_light));
 
         SubActionButton rlSub1 = rLSubBuilder.setContentView(rlIcon1).build();
-        SubActionButton rlSub2 = rLSubBuilder.setContentView(rlIcon2).build();
-        SubActionButton rlSub3 = rLSubBuilder.setContentView(rlIcon3).build();
+/*        SubActionButton rlSub2 = rLSubBuilder.setContentView(rlIcon2).build();
+        SubActionButton rlSub3 = rLSubBuilder.setContentView(rlIcon3).build();*/
         SubActionButton rlSub4 = rLSubBuilder.setContentView(rlIcon4).build();
         rlIcon1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,7 +153,7 @@ public class LaunchActivity extends Activity {
                 showAddVideoItemDialog();
             }
         });
-        rlIcon2.setOnClickListener(new View.OnClickListener() {
+/*        rlIcon2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //查看直播
@@ -161,7 +164,7 @@ public class LaunchActivity extends Activity {
             public void onClick(View v) {
                 //删除
             }
-        });
+        });*/
         rlIcon4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,8 +176,8 @@ public class LaunchActivity extends Activity {
                 .setStartAngle(180)
                 .setEndAngle(270)
                 .addSubActionView(rlSub1)
-                .addSubActionView(rlSub2)
-                .addSubActionView(rlSub3)
+            /*    .addSubActionView(rlSub2)
+                .addSubActionView(rlSub3)*/
                 .addSubActionView(rlSub4)
                 .attachTo(menuimg)
                 .build();
