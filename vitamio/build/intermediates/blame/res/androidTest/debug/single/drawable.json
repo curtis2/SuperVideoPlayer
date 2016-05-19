@@ -4,18 +4,6 @@
         "source": "E:\\github\\SuperVideoPlayer\\vitamio\\build\\intermediates\\bundles\\debug\\res\\drawable\\mediacontroller_button.xml"
     },
     {
-        "merged": "F:\\SuperVideoPlayer\\vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\mediacontroller_button.xml",
-        "source": "F:\\SuperVideoPlayer\\vitamio\\build\\intermediates\\bundles\\debug\\res\\drawable\\mediacontroller_button.xml"
-    },
-    {
-        "merged": "F:\\SuperVideoPlayer\\vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\scrubber_control_selector_holo.xml",
-        "source": "F:\\SuperVideoPlayer\\vitamio\\build\\intermediates\\bundles\\debug\\res\\drawable\\scrubber_control_selector_holo.xml"
-    },
-    {
-        "merged": "F:\\SuperVideoPlayer\\vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\scrubber_progress_horizontal_holo_dark.xml",
-        "source": "F:\\SuperVideoPlayer\\vitamio\\build\\intermediates\\bundles\\debug\\res\\drawable\\scrubber_progress_horizontal_holo_dark.xml"
-    },
-    {
         "merged": "E:\\github\\SuperVideoPlayer\\vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\scrubber_progress_horizontal_holo_dark.xml",
         "source": "E:\\github\\SuperVideoPlayer\\vitamio\\build\\intermediates\\bundles\\debug\\res\\drawable\\scrubber_progress_horizontal_holo_dark.xml"
     },
