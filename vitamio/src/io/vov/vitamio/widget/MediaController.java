@@ -227,10 +227,10 @@ public class MediaController extends FrameLayout {
             mWindow.setHeight(LayoutParams.WRAP_CONTENT);
         }
         initControllerView(mRoot);
-        setOnTouchEvent();
+        initOtherView();
     }
 
-    protected void setOnTouchEvent() {
+    protected void initOtherView() {
 
     }
 
@@ -431,7 +431,7 @@ public class MediaController extends FrameLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-//    show(sDefaultTimeout);
+    show(sDefaultTimeout);
         return true;
     }
 

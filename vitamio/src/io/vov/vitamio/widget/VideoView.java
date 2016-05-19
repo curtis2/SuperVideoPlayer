@@ -207,14 +207,18 @@ public class VideoView extends SurfaceView implements MediaController.MediaPlaye
         mOnCompletionListener.onCompletion(mMediaPlayer);
     }
   };
-  private OnErrorListener mErrorListener = new OnErrorListener() {
+
+    public MediaPlayer getmMediaPlayer() {
+        return mMediaPlayer;
+    }
+
+    private OnErrorListener mErrorListener = new OnErrorListener() {
     public boolean onError(MediaPlayer mp, int framework_err, int impl_err) {
       Log.d("Error: %d, %d", framework_err, impl_err);
       mCurrentState = STATE_ERROR;
       mTargetState = STATE_ERROR;
       if (mMediaController != null)
         mMediaController.hide();
-
       if (mOnErrorListener != null) {
         if (mOnErrorListener.onError(mMediaPlayer, framework_err, impl_err))
           return true;
