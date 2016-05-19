@@ -23,6 +23,7 @@ import com.elliott.supervideoplayer.db.VideoBeanDaoHelper;
 import com.elliott.supervideoplayer.model.VideoBean;
 import com.elliott.supervideoplayer.utils.DensityUtils;
 import com.elliott.supervideoplayer.utils.DialogUtils;
+import com.elliott.supervideoplayer.utils.ExceptionHandler;
 import com.elliott.supervideoplayer.utils.T;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
@@ -31,15 +32,30 @@ import java.util.ArrayList;
 
 public class LaunchActivity extends Activity {
     /**
-     * 测试视频地址
+     * 测试在线视频地址
      * mp4: http://125.39.142.86/data2/video09/2016/03/01/3871799-102-1615.mp4
      * flv: http://v.cctv.com/flash//jingjibanxiaoshi/2008/09/jingjibanxiaoshi_300_20080919_1.flv
+     * avi: http://7xt2pm.com1.z0.glb.clouddn.com/%E7%AC%AC%E5%9B%9B%E8%AF%BE.avi
      */
     private String[] mVideoTestPath =new String[]{
-            "http://125.39.142.86/data2/video09/2016/03/01/3871799-102-1615.mp4","http://v.cctv.com/flash//jingjibanxiaoshi/2008/09/jingjibanxiaoshi_300_20080919_1.flv"
+            "http://125.39.142.86/data2/video09/2016/03/01/3871799-102-1615.mp4",
+            "http://v.cctv.com/flash//jingjibanxiaoshi/2008/09/jingjibanxiaoshi_300_20080919_1.flv",
+            "http://7xt2pm.com1.z0.glb.clouddn.com/%E7%AC%AC%E5%9B%9B%E8%AF%BE.avi"
     } ;
     private String[] mVideoTestPathName =new String[]{
-            "mp4","flv"
+            "mp4","flv","avi"
+    } ;
+
+    /**
+     * 测试直播流的地址
+     * RTMP:rtmp://live.hkstv.hk.lxdns.com/live/hks
+     * m3u8: http://live3.tdm.com.mo:1935/tv/ch3.live/playlist.m3u8
+     */
+    private String[] mVideoLiveTestPath =new String[]{
+            "rtmp://live.hkstv.hk.lxdns.com/live/hks","http://live3.tdm.com.mo:1935/tv/ch3.live/playlist.m3u8"
+    } ;
+    private String[] mVideoLivePathName =new String[]{
+            "RTMP","m3u8 "
     } ;
     private LinearLayout mLinearLayout;
     private LinearLayout linearLayout;
@@ -49,7 +65,6 @@ public class LaunchActivity extends Activity {
     private ArrayList<View> mViewList;
     private SparseArray<ArrayList<VideoBean>> mDataMaps;
     private SparseArray<VideoAdapter> mAdapters;
-
     /**
      * 底部菜单按钮
      */
@@ -64,6 +79,10 @@ public class LaunchActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /**
+         * catch unexpected error
+         */
+        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler());
         setContentView(R.layout.activity_main);
         initViews();
         initMenus();
@@ -76,9 +95,9 @@ public class LaunchActivity extends Activity {
      * 添加测试数据
      */
     private void initTestDatas() {
-
         ArrayList<VideoBean> datasByList = helper.getDatasByType(currentType);
         if(datasByList.size()<=0){
+            //在线视频
             for (int i=0;i<mVideoTestPath.length;i++){
                 VideoBean bean=new VideoBean();
                 bean.setVideoLink(mVideoTestPath[i]);
@@ -86,6 +105,15 @@ public class LaunchActivity extends Activity {
                 bean.setType(currentType);
                 helper.insertBean(bean);
                 showCurrentTypeData(bean);
+            }
+           //直播流
+            for (int i=0;i<mVideoLiveTestPath.length;i++){
+                VideoBean bean=new VideoBean();
+                bean.setVideoLink(mVideoLiveTestPath[i]);
+                bean.setVideoName(mVideoLivePathName[i]);
+                bean.setType(1);
+                helper.insertBean(bean);
+                mDataMaps.get(1).add(bean);
             }
         }
     }
@@ -253,10 +281,21 @@ public class LaunchActivity extends Activity {
             mViewList.add(listview);
         }
     }
+
     private void goToVideoPlayerPage(VideoBean bean) {
-        Intent appIntent = new Intent(this,VideoViewActivity.class);
-        appIntent.putExtra(VideoViewActivity.VIDEO_PATH,bean.getVideoLink());
-        startActivity(appIntent);
+        if(currentType==0){
+            Intent appIntent = new Intent(this,VideoViewActivity.class);
+            appIntent.putExtra(VideoViewActivity.VIDEO_PATH,bean.getVideoLink());
+            startActivity(appIntent);
+        }else{
+            try{
+                Intent appIntent = new Intent(this,VideoViewLiveActivity.class);
+                appIntent.putExtra(VideoViewLiveActivity.VIDEO_PATH,bean.getVideoLink());
+                startActivity(appIntent);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

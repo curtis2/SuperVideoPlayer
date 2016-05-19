@@ -19,7 +19,6 @@ package com.elliott.supervideoplayer;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -34,8 +33,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import com.elliott.supervideoplayer.utils.LogUtils;
-import com.elliott.supervideoplayer.utils.T;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,7 +43,6 @@ import java.util.HashMap;
 
 import io.vov.vitamio.LibsChecker;
 import io.vov.vitamio.MediaPlayer;
-import io.vov.vitamio.utils.StringUtils;
 import io.vov.vitamio.widget.VideoView;
 import master.flame.danmaku.controller.IDanmakuView;
 import master.flame.danmaku.danmaku.loader.ILoader;
@@ -68,9 +64,9 @@ import master.flame.danmaku.danmaku.util.IOUtils;
 /**
  * auther: elliott zhang
  * Emaill:18292967668@163.com
- *  播放在线视频流界面
+ *  播放直播流界面
  */
-public class VideoViewActivity extends Activity  {
+public class VideoViewLiveActivity extends Activity  {
     public static final String VIDEO_PATH="videoName";
     private VideoView mVideoView;
     private LinearLayout mLoadingLayout;
@@ -85,7 +81,6 @@ public class VideoViewActivity extends Activity  {
      * setting
      */
     private boolean needResume;
-
     /**
      * 弹幕
      */
@@ -132,7 +127,6 @@ public class VideoViewActivity extends Activity  {
                 }.start();
             }
         }
-
         @Override
         public void releaseResource(BaseDanmaku danmaku) {
             // TODO 重要:清理含有ImageSpan的text中的一些占用内存的资源 例如drawable
@@ -142,7 +136,7 @@ public class VideoViewActivity extends Activity  {
     /**
      * 视频播放控制界面
      */
-    CustomMediaController mediaController;
+    CustomMediaLiveController mediaController;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -159,7 +153,7 @@ public class VideoViewActivity extends Activity  {
      * 初始化弹幕相关
      */
     private void initTanMuViews() {
-        mediaController = new CustomMediaController(this);
+        mediaController = new CustomMediaLiveController(this);
         // 设置最大显示行数
         HashMap<Integer, Integer> maxLinesPair = new HashMap<Integer, Integer>();
         maxLinesPair.put(BaseDanmaku.TYPE_SCROLL_RL, 5); // 滚动弹幕最大显示5行
@@ -266,7 +260,6 @@ public class VideoViewActivity extends Activity  {
 
     private void initVideoSettings() {
         mVideoView.requestFocus();
-        mVideoView.setBufferSize(1024 * 1024);
         mVideoView.setVideoChroma(MediaPlayer.VIDEOCHROMA_RGB565);
         mVideoView.setMediaController(mediaController);
         mVideoView.setVideoPath(mVideoPath);
@@ -287,63 +280,12 @@ public class VideoViewActivity extends Activity  {
             public void onPrepared(MediaPlayer mediaPlayer) {
                 // TODO Auto-generated method stub
                 stopLoadingAnimator();
-
                 if (currentPosition > 0) {
                     mVideoView.seekTo(currentPosition);
                 } else {
                     mediaPlayer.setPlaybackSpeed(1.0f);
                 }
                 startPlay();
-            }
-        });
-        mVideoView.setOnInfoListener(new MediaPlayer.OnInfoListener() {
-            @Override
-            public boolean onInfo(MediaPlayer arg0, int arg1, int arg2) {
-                switch (arg1) {
-                    case MediaPlayer.MEDIA_INFO_BUFFERING_START:
-                        //开始缓存，暂停播放
-                        LogUtils.i(LogUtils.LOG_TAG, "开始缓存");
-                        startLoadingAnimator();
-                        if (mVideoView.isPlaying()) {
-                            stopPlay();
-                            needResume = true;
-                        }
-                        break;
-                    case MediaPlayer.MEDIA_INFO_BUFFERING_END:
-                        //缓存完成，继续播放
-                        stopLoadingAnimator();
-                        if (needResume) startPlay();
-                        LogUtils.i(LogUtils.LOG_TAG, "缓存完成");
-                        break;
-                    case MediaPlayer.MEDIA_INFO_DOWNLOAD_RATE_CHANGED:
-                        //显示 下载速度
-                        LogUtils.i("download rate:" + arg2);
-                        break;
-                }
-                return true;
-            }
-        });
-        mVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-            }
-        });
-        mVideoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-            @Override
-            public boolean onError(MediaPlayer mp, int what, int extra) {
-//                LogUtils.i(LogUtils.LOG_TAG, "what=" + what);
-                return false;
-            }
-        });
-        mVideoView.setOnSeekCompleteListener(new MediaPlayer.OnSeekCompleteListener() {
-            @Override
-            public void onSeekComplete(MediaPlayer mp) {
-            }
-        });
-        mVideoView.setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
-            @Override
-            public void onBufferingUpdate(MediaPlayer mp, int percent) {
-                LogUtils.i(LogUtils.LOG_TAG, "percent" + percent);
             }
         });
     }
@@ -354,7 +296,6 @@ public class VideoViewActivity extends Activity  {
             mOjectAnimator = ObjectAnimator.ofFloat(mLoadingImg, "rotation", 0f, 360f);
         }
         mLoadingLayout.setVisibility(View.VISIBLE);
-
         mOjectAnimator.setDuration(1000);
         mOjectAnimator.setRepeatCount(-1);
         mOjectAnimator.start();
@@ -368,11 +309,7 @@ public class VideoViewActivity extends Activity  {
     private void startPlay() {
         mVideoView.start();
     }
-
-    private void stopPlay() {
-        mVideoView.pause();
-    }
-
+    @Override
     public void onPause() {
         super.onPause();
         currentPosition = mVideoView.getCurrentPosition();
@@ -398,56 +335,4 @@ public class VideoViewActivity extends Activity  {
         }
     }
 
-    /**
-     * 获取视频当前帧
-     * @return
-     */
-    public Bitmap getCurrentFrame() {
-        if(mVideoView!=null){
-            MediaPlayer mediaPlayer = mVideoView.getmMediaPlayer();
-            return  mediaPlayer.getCurrentFrame();
-        }
-        return null;
-    }
-    /**
-     * 快退(每次都快进视频总时长的1%)
-     */
-    public void speedVideo() {
-        if(mVideoView!=null){
-            long duration = mVideoView.getDuration();
-            long currentPosition = mVideoView.getCurrentPosition();
-            long goalduration=currentPosition+duration/10;
-            if(goalduration>=duration){
-                mVideoView.seekTo(duration);
-            }else{
-                mVideoView.seekTo(goalduration);
-            }
-            T.showToastMsgShort(this, StringUtils.generateTime(goalduration));
-        }
-    }
-
-    /**
-     * 快退(每次都快退视频总时长的1%)
-     */
-    public void reverseVideo() {
-        if(mVideoView!=null){
-            long duration = mVideoView.getDuration();
-            long currentPosition = mVideoView.getCurrentPosition();
-            long goalduration=currentPosition-duration/10;
-            if(goalduration<=0){
-                mVideoView.seekTo(0);
-            }else{
-                mVideoView.seekTo(goalduration);
-            }
-            T.showToastMsgShort(this, StringUtils.generateTime(goalduration));
-        }
-    }
-    /**
-     * 设置屏幕的显示大小
-     */
-    public void setVideoPageSize(int currentPageSize) {
-        if(mVideoView!=null){
-            mVideoView.setVideoLayout(currentPageSize,0);
-        }
-    }
 }
