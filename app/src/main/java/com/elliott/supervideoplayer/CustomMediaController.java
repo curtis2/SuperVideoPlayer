@@ -2,6 +2,7 @@ package com.elliott.supervideoplayer;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.os.Handler;
 import android.os.Message;
@@ -15,8 +16,14 @@ import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.TextView;
 
+import com.elliott.supervideoplayer.utils.BitmapUtil;
 import com.elliott.supervideoplayer.utils.LogUtils;
+import com.elliott.supervideoplayer.utils.RandomUtil;
+import com.elliott.supervideoplayer.utils.T;
+
+import java.io.File;
 
 import io.vov.vitamio.widget.MediaController;
 import master.flame.danmaku.controller.IDanmakuView;
@@ -38,8 +45,39 @@ public class CustomMediaController extends MediaController {
     private float mBrightness = -1f;
     private GestureDetector mGestureDetector;
 
+    VideoViewActivity activity;
+    private ImageView mediacontroller_snapshot;
+    private ImageView mediacontroller_previous;
+    private ImageView mediacontroller_next;
+    private ImageView mediacontroller_screen_fit;
+    /**
+     * public static final int VIDEO_LAYOUT_ORIGIN
+     缩放参数，原始画面大小。
+     常量值：0
+
+     public static final int VIDEO_LAYOUT_SCALE
+     缩放参数，画面全屏。
+     常量值：1
+
+     public static final int VIDEO_LAYOUT_STRETCH
+     缩放参数，画面拉伸。
+     常量值：2
+
+     public static final int VIDEO_LAYOUT_ZOOM
+     缩放参数，画面裁剪。
+     常量值：3
+     */
+    private String[] strDialogs=new String[]{"100%","全屏","拉伸","裁剪"};
+    private int[] imgs=new int[]{R.drawable.mediacontroller_sreen_size_100,R.drawable.mediacontroller_screen_fit,R.drawable.mediacontroller_screen_size,R.drawable.mediacontroller_sreen_size_crop};
+    private int mCurrentPageSize=2;
+
+    private TextView currenttime_tv;
+
+    /**
+     * 弹幕相关
+     */
     private IDanmakuView mDanmakuView;
-    private Switch mtanMuSwitch=null;
+    private Switch mtanMuSwitch;
     private DanmakuContext mDanmakuContext;
     private BaseDanmakuParser mParser;
 
@@ -55,6 +93,7 @@ public class CustomMediaController extends MediaController {
     public CustomMediaController(Context context) {
         super(context);
         this.mContext = context;
+        activity=(VideoViewActivity)context;
         mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
         mMaxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         mGestureDetector = new GestureDetector(mContext, new VolumeBrightnesGestureListener());
@@ -67,8 +106,7 @@ public class CustomMediaController extends MediaController {
     }
 
     @Override
-    protected void setOnTouchEvent() {
-
+    protected void initOtherView() {
         mtanMuSwitch= (Switch) mRoot.findViewById(R.id.switch_tanmu);
         mtanMuSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -85,7 +123,50 @@ public class CustomMediaController extends MediaController {
                 }
             }
         });
-
+        mediacontroller_snapshot= (ImageView) mRoot.findViewById(R.id.mediacontroller_snapshot);
+        mediacontroller_previous= (ImageView) mRoot.findViewById(R.id.mediacontroller_previous);
+        mediacontroller_next= (ImageView) mRoot.findViewById(R.id.mediacontroller_next);
+        mediacontroller_screen_fit= (ImageView) mRoot.findViewById(R.id.mediacontroller_screen_fit);
+        mediacontroller_snapshot.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bitmap currentFrame = activity.getCurrentFrame();
+                //保存到本地
+                String picturnPath= activity.getExternalCacheDir()+File.separator+RandomUtil.getRandomLetters(6)+".jpg";
+                boolean saveSuccess = BitmapUtil.saveBitmap(currentFrame, new File(picturnPath));
+                if(saveSuccess){
+                    T.showLong(activity,"截屏保存到"+picturnPath);
+                }else{
+                    T.showLong(activity,"截屏失败");
+                }
+            }
+        });
+        mediacontroller_previous.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.reverseVideo();
+            }
+        });
+        mediacontroller_next.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.speedVideo();
+            }
+        });
+        mediacontroller_screen_fit.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCurrentPageSize++;
+                if(mCurrentPageSize>3){
+                    mCurrentPageSize=0;
+                }
+                T.showToastMsgShort(activity,strDialogs[mCurrentPageSize]);
+                mediacontroller_screen_fit.setBackground(getResources().getDrawable(imgs[mCurrentPageSize]));
+                activity.setVideoPageSize(mCurrentPageSize);
+            }
+        });
+        currenttime_tv=(TextView) mRoot.findViewById(R.id.currenttime_tv);
+        
         mVolumeBrightnessLayout = mRoot.findViewById(R.id.operation_volume_brightness);
         mOperationBg = (ImageView) mRoot.findViewById(R.id.operation_bg);
         mOperationPercent = (ImageView) mRoot.findViewById(R.id.operation_percent);

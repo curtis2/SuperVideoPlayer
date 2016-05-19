@@ -19,6 +19,7 @@ package com.elliott.supervideoplayer;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -35,6 +36,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.elliott.supervideoplayer.utils.LogUtils;
+import com.elliott.supervideoplayer.utils.T;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,6 +47,7 @@ import java.util.HashMap;
 
 import io.vov.vitamio.LibsChecker;
 import io.vov.vitamio.MediaPlayer;
+import io.vov.vitamio.utils.StringUtils;
 import io.vov.vitamio.widget.VideoView;
 import master.flame.danmaku.controller.IDanmakuView;
 import master.flame.danmaku.danmaku.loader.ILoader;
@@ -63,7 +66,7 @@ import master.flame.danmaku.danmaku.parser.IDataSource;
 import master.flame.danmaku.danmaku.parser.android.BiliDanmukuParser;
 import master.flame.danmaku.danmaku.util.IOUtils;
 
-public class VideoViewActivity extends Activity {
+public class VideoViewActivity extends Activity  {
     public static final String VIDEO_PATH="videoName";
     private VideoView mVideoView;
     private LinearLayout mLoadingLayout;
@@ -136,6 +139,7 @@ public class VideoViewActivity extends Activity {
      * 视频播放控制界面
      */
     CustomMediaController mediaController;
+
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
@@ -147,6 +151,9 @@ public class VideoViewActivity extends Activity {
         initVideoSettings();
     }
 
+    /**
+     * 初始化弹幕相关
+     */
     private void initTanMuViews() {
         mediaController = new CustomMediaController(this);
         // 设置最大显示行数
@@ -197,7 +204,7 @@ public class VideoViewActivity extends Activity {
                 }
             });
             mDanmakuView.showFPS(true);
-//            mDanmakuView.prepare(mParser, mContext);
+//          mDanmakuView.prepare(mParser, mContext);
             mediaController.setTanMuView(mDanmakuView,mContext,mParser);
             mDanmakuView.enableDanmakuDrawingCache(true);
             ((View) mDanmakuView).setOnClickListener(new View.OnClickListener() {
@@ -209,10 +216,8 @@ public class VideoViewActivity extends Activity {
         }
     }
     private BaseDanmakuParser createParser(InputStream stream) {
-
         if (stream == null) {
             return new BaseDanmakuParser() {
-
                 @Override
                 protected Danmakus parse() {
                     return new Danmakus();
@@ -243,6 +248,7 @@ public class VideoViewActivity extends Activity {
         return spannableStringBuilder;
     }
 
+
     private void getDataFromIntent() {
         Intent Intent = getIntent();
         if (Intent != null && Intent.getExtras().containsKey(VIDEO_PATH)) {
@@ -259,8 +265,9 @@ public class VideoViewActivity extends Activity {
     private void initVideoSettings() {
         mVideoView.requestFocus();
         mVideoView.setBufferSize(1024 * 1024);
-        mVideoView.setVideoPath(mVideoPath);
+        mVideoView.setVideoChroma(MediaPlayer.VIDEOCHROMA_RGB565);
         mVideoView.setMediaController(mediaController);
+        mVideoView.setVideoPath(mVideoPath);
     }
 
     public void onResume() {
@@ -335,9 +342,6 @@ public class VideoViewActivity extends Activity {
             @Override
             public void onBufferingUpdate(MediaPlayer mp, int percent) {
                 LogUtils.i(LogUtils.LOG_TAG, "percent" + percent);
-             /*   if(percent==100){
-                    stopLoadingAnimator();
-                }*/
             }
         });
     }
@@ -392,4 +396,56 @@ public class VideoViewActivity extends Activity {
         }
     }
 
+    /**
+     * 获取视频当前帧
+     * @return
+     */
+    public Bitmap getCurrentFrame() {
+        if(mVideoView!=null){
+            MediaPlayer mediaPlayer = mVideoView.getmMediaPlayer();
+            return  mediaPlayer.getCurrentFrame();
+        }
+        return null;
+    }
+    /**
+     * 快退(每次都快进视频总时长的1%)
+     */
+    public void speedVideo() {
+        if(mVideoView!=null){
+            long duration = mVideoView.getDuration();
+            long currentPosition = mVideoView.getCurrentPosition();
+            long goalduration=currentPosition+duration/10;
+            if(goalduration>=duration){
+                mVideoView.seekTo(duration);
+            }else{
+                mVideoView.seekTo(goalduration);
+            }
+            T.showToastMsgShort(this, StringUtils.generateTime(goalduration));
+        }
+    }
+
+    /**
+     * 快退(每次都快退视频总时长的1%)
+     */
+    public void reverseVideo() {
+        if(mVideoView!=null){
+            long duration = mVideoView.getDuration();
+            long currentPosition = mVideoView.getCurrentPosition();
+            long goalduration=currentPosition-duration/10;
+            if(goalduration<=0){
+                mVideoView.seekTo(0);
+            }else{
+                mVideoView.seekTo(goalduration);
+            }
+            T.showToastMsgShort(this, StringUtils.generateTime(goalduration));
+        }
+    }
+    /**
+     * 设置屏幕的显示大小
+     */
+    public void setVideoPageSize(int currentPageSize) {
+        if(mVideoView!=null){
+            mVideoView.setVideoLayout(currentPageSize,0);
+        }
+    }
 }

@@ -110,9 +110,10 @@
             android:layout_centerVertical="true"
             />
         <ImageView
+            android:id="@+id/mediacontroller_screen_fit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/mediacontroller_screen_fit"
+            android:background="@drawable/mediacontroller_screen_fit"
             android:layout_toRightOf="@+id/mediacontroller_next"
             android:layout_marginLeft="25dp"
             android:layout_centerVertical="true"

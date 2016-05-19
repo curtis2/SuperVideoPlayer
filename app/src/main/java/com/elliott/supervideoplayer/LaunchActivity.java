@@ -19,7 +19,6 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.elliott.supervideoplayer.adapter.VideoAdapter;
-import com.elliott.supervideoplayer.adapter.ViewPagerAdapter;
 import com.elliott.supervideoplayer.db.VideoBeanDaoHelper;
 import com.elliott.supervideoplayer.model.VideoBean;
 import com.elliott.supervideoplayer.utils.DensityUtils;
@@ -31,29 +30,37 @@ import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 import java.util.ArrayList;
 
 public class LaunchActivity extends Activity {
-    private String mVideoPath = "http://125.39.142.86/data2/video09/2016/03/01/3871799-102-1615.mp4";
+    /**
+     * 测试视频地址
+     * mp4: http://125.39.142.86/data2/video09/2016/03/01/3871799-102-1615.mp4
+     * flv: http://v.cctv.com/flash//jingjibanxiaoshi/2008/09/jingjibanxiaoshi_300_20080919_1.flv
+     */
+    private String[] mVideoTestPath =new String[]{
+            "http://125.39.142.86/data2/video09/2016/03/01/3871799-102-1615.mp4","http://v.cctv.com/flash//jingjibanxiaoshi/2008/09/jingjibanxiaoshi_300_20080919_1.flv"
+    } ;
+    private String[] mVideoTestPathName =new String[]{
+            "mp4","flv"
+    } ;
     private LinearLayout mLinearLayout;
-    private LinearLayout lineaylayout1;
+    private LinearLayout linearLayout;
     private LinearLayout lineaylayout2;
-    private LinearLayout lineaylayout3;
-    private ImageView ImageView1;
     private ImageView ImageView2;
     private ImageView ImageView3;
-
-    public LaunchActivity() {
-        super();
-    }
-
     private ArrayList<View> mViewList;
-    private ViewPagerAdapter pageAdapter;
-
     private SparseArray<ArrayList<VideoBean>> mDataMaps;
     private SparseArray<VideoAdapter> mAdapters;
 
+    /**
+     * 底部菜单按钮
+     */
     FloatingActionMenu  floatingActionMenu;
 
     VideoBeanDaoHelper helper;
+    /**
+     *  0表示在线视频  1表示直播
+     */
     private int currentType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +68,7 @@ public class LaunchActivity extends Activity {
         initViews();
         initMenus();
         initDatas();
+        initTestDatas();
         showCurrentListView();
    }
 
@@ -68,13 +76,17 @@ public class LaunchActivity extends Activity {
      * 添加测试数据
      */
     private void initTestDatas() {
-        ArrayList<VideoBean> datasByType = helper.getDatasByType(currentType);
-        if(datasByType==null){
-            VideoBean bean=new VideoBean();
-            bean.setVideoLink(mVideoPath);
-            bean.setVideoName("mp4");
-            bean.setType(currentType);
-            helper.insertBean(bean);
+
+        ArrayList<VideoBean> datasByList = helper.getDatasByType(currentType);
+        if(datasByList.size()<=0){
+            for (int i=0;i<mVideoTestPath.length;i++){
+                VideoBean bean=new VideoBean();
+                bean.setVideoLink(mVideoTestPath[i]);
+                bean.setVideoName(mVideoTestPathName[i]);
+                bean.setType(currentType);
+                helper.insertBean(bean);
+                showCurrentTypeData(bean);
+            }
         }
     }
 
@@ -85,10 +97,9 @@ public class LaunchActivity extends Activity {
 
     private void initViews() {
         mLinearLayout= (LinearLayout) findViewById(R.id.linearlayout_content);
-        lineaylayout1= (LinearLayout) findViewById(R.id.button_layout_1);
-        lineaylayout2= (LinearLayout) findViewById(R.id.button_layout_2);
-        lineaylayout3= (LinearLayout) findViewById(R.id.button_layout_3);
-        lineaylayout1.setOnClickListener(new View.OnClickListener() {
+        linearLayout = (LinearLayout) findViewById(R.id.button_layout_2);
+        lineaylayout2= (LinearLayout) findViewById(R.id.button_layout_3);
+        linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 handTitleIndexImg(0);
@@ -102,15 +113,6 @@ public class LaunchActivity extends Activity {
                 showCurrentListView();
             }
         });
-        lineaylayout3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handTitleIndexImg(2);
-                showCurrentListView();
-            }
-        });
-
-        ImageView1= (ImageView) findViewById(R.id.button_line_img1);
         ImageView2= (ImageView) findViewById(R.id.button_line_img2);
         ImageView3= (ImageView) findViewById(R.id.button_line_img3);
         handTitleIndexImg(0);
@@ -119,7 +121,6 @@ public class LaunchActivity extends Activity {
     private void handTitleIndexImg(int position) {
         currentType=position;
         ArrayList<View> list=new ArrayList<>();
-        list.add(ImageView1);
         list.add(ImageView2);
         list.add(ImageView3);
         int size =list.size();
@@ -133,18 +134,12 @@ public class LaunchActivity extends Activity {
         ImageView menuimg= (ImageView) findViewById(R.id.menu_img);
         SubActionButton.Builder rLSubBuilder = new SubActionButton.Builder(this);
         ImageView rlIcon1 = new ImageView(this);
-/*        ImageView rlIcon2 = new ImageView(this);
-        ImageView rlIcon3 = new ImageView(this);*/
         ImageView rlIcon4 = new ImageView(this);
 
         rlIcon1.setImageDrawable(getResources().getDrawable(R.drawable.action_edit_light));
-/*        rlIcon2.setImageDrawable(getResources().getDrawable(R.drawable.action_hidden_default_dark));
-        rlIcon3.setImageDrawable(getResources().getDrawable(R.drawable.action_delete_selected_light));*/
         rlIcon4.setImageDrawable(getResources().getDrawable(R.drawable.abc_ic_clear_search_api_holo_light));
 
         SubActionButton rlSub1 = rLSubBuilder.setContentView(rlIcon1).build();
-/*        SubActionButton rlSub2 = rLSubBuilder.setContentView(rlIcon2).build();
-        SubActionButton rlSub3 = rLSubBuilder.setContentView(rlIcon3).build();*/
         SubActionButton rlSub4 = rLSubBuilder.setContentView(rlIcon4).build();
         rlIcon1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,18 +148,6 @@ public class LaunchActivity extends Activity {
                 showAddVideoItemDialog();
             }
         });
-/*        rlIcon2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //查看直播
-            }
-        });
-        rlIcon3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //删除
-            }
-        });*/
         rlIcon4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,11 +156,9 @@ public class LaunchActivity extends Activity {
             }
         });
        floatingActionMenu= new FloatingActionMenu.Builder(this)
-                .setStartAngle(180)
-                .setEndAngle(270)
+                .setStartAngle(210)
+                .setEndAngle(250)
                 .addSubActionView(rlSub1)
-            /*    .addSubActionView(rlSub2)
-                .addSubActionView(rlSub3)*/
                 .addSubActionView(rlSub4)
                 .attachTo(menuimg)
                 .build();
@@ -210,7 +191,6 @@ public class LaunchActivity extends Activity {
             }
         }).show();
     }
-
     private void  showCurrentTypeData(VideoBean bean){
         mDataMaps.get(currentType).add(bean);
         mAdapters.get(currentType).notifyDataSetChanged();
@@ -221,14 +201,12 @@ public class LaunchActivity extends Activity {
         mDataMaps.get(currentType).remove(bean);
         mAdapters.get(currentType).notifyDataSetChanged();
     }
-
     private void initDatas() {
         helper=new VideoBeanDaoHelper(this);
-        initTestDatas();
         mViewList=new ArrayList<View>();
         mDataMaps=new SparseArray<>();
         mAdapters=new SparseArray<>();
-        for (int i=0;i<3;i++) {
+        for (int i=0;i<2;i++) {
             SwipeMenuListView listview = new SwipeMenuListView(this);
             ArrayList<VideoBean> dataList = helper.getDatasByType(i);
             VideoAdapter videoAdapter = new VideoAdapter(this, dataList, R.layout.video_item_layout);
@@ -280,7 +258,6 @@ public class LaunchActivity extends Activity {
         appIntent.putExtra(VideoViewActivity.VIDEO_PATH,bean.getVideoLink());
         startActivity(appIntent);
     }
-
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
