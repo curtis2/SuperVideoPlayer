@@ -52,9 +52,9 @@ vitamio支持的视频格式：
 
 ![Alt text](https://github.com/curtis2/SuperVideoPlayer/blob/master/source/start3.gif)
 
-![Alt text](./Screenshot_2016-05-19-11-39-39.jpeg)
-![Alt text](./Screenshot_2016-05-19-11-39-49.jpeg)
-![Alt text](./Screenshot_2016-05-19-11-40-21.jpeg)
+![Alt text](https://raw.githubusercontent.com/curtis2/SuperVideoPlayer/master/source/Screenshot_2016-05-19-11-39-39.jpeg)
+![Alt text](https://raw.githubusercontent.com/curtis2/SuperVideoPlayer/master/source/Screenshot_2016-05-19-11-39-49.jpeg)
+![Alt text](https://raw.githubusercontent.com/curtis2/SuperVideoPlayer/master/source/Screenshot_2016-05-19-11-40-21.jpeg)
 
 ***
 
