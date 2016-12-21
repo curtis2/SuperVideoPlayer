@@ -1,11 +1,11 @@
 [
     {
-        "merged": "E:\\github\\SuperVideoPlayer\\vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\scrubber_control_disabled_holo.png",
-        "source": "E:\\github\\SuperVideoPlayer\\vitamio\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\scrubber_control_disabled_holo.png"
-    },
-    {
         "merged": "E:\\github\\SuperVideoPlayer\\vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\mediacontroller_pause.png",
         "source": "E:\\github\\SuperVideoPlayer\\vitamio\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\mediacontroller_pause.png"
+    },
+    {
+        "merged": "E:\\github\\SuperVideoPlayer\\vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\scrubber_control_disabled_holo.png",
+        "source": "E:\\github\\SuperVideoPlayer\\vitamio\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\scrubber_control_disabled_holo.png"
     },
     {
         "merged": "E:\\github\\SuperVideoPlayer\\vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\mediacontroller_play.png",

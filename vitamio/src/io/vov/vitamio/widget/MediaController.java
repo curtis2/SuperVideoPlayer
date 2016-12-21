@@ -83,7 +83,7 @@ public class MediaController extends FrameLayout {
     private int mAnimStyle;//控制条的显示动画
     private View mAnchor;
     public View mRoot;
-    private SeekBar mProgress;
+    public SeekBar mProgress;
     private TextView mEndTime, mCurrentTime;
     private TextView mFileName;
     private OutlineTextView mInfoView;
